@@ -13,6 +13,35 @@
   }
 }
 
+.convert-button {
+  background-color: #1DB954; /* Spotify green */
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+}
+
+.convert-button:hover {
+  background-color: #17a94e;
+  transform: translateY(-2px);
+}
+
+.convert-button:active {
+  background-color: #148c41;
+  transform: translateY(0);
+}
+
+.convert-button:disabled {
+  background-color: #a5d6b5;
+  cursor: not-allowed;
+}
+
 .App-nav {
   background-color: #30353f;
   position: fixed;

@@ -22,7 +22,7 @@ def convert():
     artist = data.get("artist", "").strip()
     album = data.get("album", "").strip()
 
-    file_title = f"{artist + ' - ' if artist else ''}{title}" if title else None
+    file_title = title if title else None
 
     if not file_title:
         with YoutubeDL() as ydl:

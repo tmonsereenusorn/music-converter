@@ -70,6 +70,7 @@ function App() {
         <h1>Music Converter</h1>
       </nav>
       <div className="form">
+        <h2 className='metadata-title'>Song URL</h2>
         <input className="url-bar"
           onChange={handleUrlChange}
           value={url}
@@ -79,7 +80,7 @@ function App() {
         <div className='metadata-container'>
           <h2 className='metadata-title'>Song Metadata</h2>
           <div className='metadata-field'>
-            <h1 className='metadata-field-title'>Title</h1>
+            <h1 className='metadata-field-title'>Song Title</h1>
             <input className='metadata-input'
               type="text"
               value={title}
@@ -107,7 +108,7 @@ function App() {
           </div>
         </div>
 
-        <button onClick={handleSubmit}>Convert</button>
+        <button className="convert-button" onClick={handleSubmit}>Convert</button>
       </div>
       {loading && (
         <div className="overlay">
