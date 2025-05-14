@@ -7,6 +7,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
   const [album, setAlbum] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleUrlChange = (event) => {
     setUrl(event.target.value);
@@ -25,6 +26,7 @@ function App() {
   }
 
   const handleSubmit = () => {
+    setLoading(true);
     const data = {
       url,
       title,
@@ -58,7 +60,8 @@ function App() {
         a.click();
         URL.revokeObjectURL(url);
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error:', error))
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -106,6 +109,12 @@ function App() {
 
         <button onClick={handleSubmit}>Convert</button>
       </div>
+      {loading && (
+        <div className="overlay">
+          <div className="loader"></div>
+          <p className="overlay-text">Converting your song...</p>
+        </div>
+      )}
     </div>
   );
 }
