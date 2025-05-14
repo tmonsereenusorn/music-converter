@@ -73,8 +73,6 @@ def convert():
         return {"error": f"Metadata injection failed: {e}"}, 500
 
     response = send_file(final_mp3_path, as_attachment=True, download_name=f"{file_title}.mp3")
-    print('Response object:', response)
-    print('Response headers:', dict(response.headers))
     return response
 
 if __name__ == "__main__":
