@@ -34,7 +34,7 @@ function App() {
       album
     };
 
-    fetch('http://127.0.0.1:5000/convert', {
+    fetch(`${process.env.REACT_APP_API_URL}/convert`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -42,12 +42,8 @@ function App() {
       body: JSON.stringify(data)
     })
       .then(async response => {
-        for (const [key, value] of response.headers.entries()) {
-          console.log(`${key}: ${value}`);
-        }
-        
         const disposition = response.headers.get('Content-Disposition');
-        const filenameMatch = disposition && disposition.match(/filename="(.+)"/);
+        const filenameMatch = disposition && disposition.match(/filename="?([^"]+)"?/);
         const filename = filenameMatch ? filenameMatch[1] : 'download.mp3';
         const blob = await response.blob();
         return { filename, blob };
