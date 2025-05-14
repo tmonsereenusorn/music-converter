@@ -39,9 +39,24 @@ function App() {
       },
       body: JSON.stringify(data)
     })
-      .then(response => response.blob())
-      .then(blob => {
-        window.location.href = URL.createObjectURL(blob);
+      .then(async response => {
+        for (const [key, value] of response.headers.entries()) {
+          console.log(`${key}: ${value}`);
+        }
+        
+        const disposition = response.headers.get('Content-Disposition');
+        const filenameMatch = disposition && disposition.match(/filename="(.+)"/);
+        const filename = filenameMatch ? filenameMatch[1] : 'download.mp3';
+        const blob = await response.blob();
+        return { filename, blob };
+      })
+      .then(({ filename, blob }) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
       })
       .catch(error => console.error('Error:', error));
   }

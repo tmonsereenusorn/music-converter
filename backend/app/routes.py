@@ -4,9 +4,11 @@ from yt_dlp import YoutubeDL
 import tempfile
 import os
 import tempfile
+import subprocess
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, expose_headers=["Content-Disposition"])
+
 
 @app.route("/", methods=["GET"])
 def hello():
@@ -70,7 +72,10 @@ def convert():
     except subprocess.CalledProcessError as e:
         return {"error": f"Metadata injection failed: {e}"}, 500
 
-    return send_file(final_mp3_path, as_attachment=True, download_name=f"{file_title}.mp3")
+    response = send_file(final_mp3_path, as_attachment=True, download_name=f"{file_title}.mp3")
+    print('Response object:', response)
+    print('Response headers:', dict(response.headers))
+    return response
 
 if __name__ == "__main__":
   app.run()
